@@ -65,7 +65,7 @@ export const ProductsProvider = ({ children }) => {
     
   }
   const fetchSingleProduct = async (url) => {
-    dispatch({ type: GET_PRODUCTS_BEGIN })
+    dispatch({ type: GET_SINGLE_PRODUCT_BEGIN })
     // here single product begin is just like loading
     try {
       const response = await axios.get(url)

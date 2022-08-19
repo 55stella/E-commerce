@@ -5,8 +5,21 @@ import { useReducer } from 'react/cjs/react.production.min'
 const UserContext = React.createContext()
 
 export const UserProvider = ({ children }) => {
+  const {  loginWithRedirect,
+    logout,  user } = useAuth0();
+
+  const [myUser, setMyUser] = useState(false)
+  
+  useEffect(() => {
+    // console.log(`user: ${user}`)
+    // console.log(`isauthenticated: ${isAuthenticated}`)
+    // console.log(`isloading: ${isLoading}`)
+    setMyUser(user)
+    
+  },[user])
+
   return (
-    <UserContext.Provider value='user context'>{children}</UserContext.Provider>
+    <UserContext.Provider value={{loginWithRedirect, logout, myUser}}>{children}</UserContext.Provider>
   )
 }
 // make sure use

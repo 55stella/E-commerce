@@ -4,7 +4,7 @@ export const formatPrice = (number) => {
         // this function formats price for differnt countries.
         // takes in two parameters, a string 'en-Us and an object'
         style: 'currency',
-        currency: 'NGN'
+        currency: 'USD'
         // this is the currency code
         
     }).format((number / 100) * 600)

@@ -4,9 +4,47 @@ import { formatPrice } from '../utils/helpers'
 import AmountButtons from './AmountButtons'
 import { FaTrash } from 'react-icons/fa'
 import { useCartContext } from '../context/cart_context'
-const CartItem = () => {
-  return <h4>cart item</h4>
+const CartItem = ({id, image, name, color, price, amount}) => {
+  const { removeItem, toggleAmount } = useCartContext()
+  
+  const increase = () => {
+    toggleAmount(id, 'inc')
+    
+  }
+
+  const decrease = () => {
+    toggleAmount(id, 'dec')
+    
+  }
+
+
+  return <Wrapper>
+    <div className="title">
+      <img src={image} alt={name} />
+      <div>
+        <h5 className="name">
+          {name}
+
+        </h5>
+        <p className="color">colors:<span
+          style={{ background: color }}> </span></p>
+        <h5 className="price-small">{formatPrice(price)}</h5>
+        {/* { shows only on a small screen} */}
+      </div>
+    </div>
+    {/*  price */}
+    {/*  price for the big screen */}
+    <h5 className="price">{formatPrice(price)}</h5>
+    <AmountButtons amount={amount} increase={increase}
+      decrease={decrease}></AmountButtons>
+    <h5 className='subtotal'>
+      {formatPrice(price * amount)}
+      <button type='button' className='remove-btn' onClick={() => (removeItem(id))}><FaTrash/></button>
+      {/* this id is coming from the cart reducer */}
+    </h5>
+  </Wrapper>
 }
+
 
 const Wrapper = styled.article`
   .subtotal {

@@ -10,6 +10,7 @@ import {
 import { AddToCart } from '../components'
 
 const getLocalStorage = () => {
+
   let cart = localStorage.getItem('cart')
   if (cart) {
     return JSON.parse(localStorage.getItem('cart'))
@@ -37,15 +38,31 @@ export const CartProvider = ({ children }) => {
     dispatch({type:ADD_TO_CART, payload:{id, color, amount, product}})
     
   }
-  const removeItem = (id) => { }
-  const toggleAmount = (id, value) => { }
-  const clearCart = () => { }
+  const removeItem = (id) => {
+    dispatch({ type: REMOVE_CART_ITEM, payload: id })
+    
+   }
+
+  const toggleAmount = (id, value) => {
+    console.log(id, value)
+    dispatch({type:TOGGLE_CART_ITEM_AMOUNT, payload:{id, value}})
+   }
+
+  const clearCart = () => { 
+    dispatch({type:CLEAR_CART})
+  }
   
   useEffect(() => {
+    
     const newcart = localStorage.setItem('cart', JSON.stringify(state.cart))
     // the local storage accepts data format in a string format. so for every time the 
     // value of cart changes, we are going tobe saving into local storage.
-},[state.cart])
+
+  }, [state.cart])
+  
+  useEffect(() => {
+    dispatch({ type: COUNT_CART_TOTALS });
+  }, [state.cart])
 
   return (
     <CartContext.Provider value={{

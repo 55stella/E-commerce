@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useParams, useHistory } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useProductsContext } from '../context/products_context'
 import { single_product_url as url } from '../utils/constants'
 import { formatPrice } from '../utils/helpers'
@@ -17,7 +17,7 @@ import { Link } from 'react-router-dom'
 const SingleProductPage = () => {
   const { id } = useParams()
   
-  const history = useHistory()
+  const navigate = useNavigate()
   const {
     single_product_loading: loading,
     single_product_error: error,
@@ -27,7 +27,8 @@ const SingleProductPage = () => {
 
   
   useEffect(() => {
-  fetchSingleProduct(`${url}${id}`)
+    fetchSingleProduct(`${url}${id}`);
+    // eslint-disable-next-line
   }, [id])
   
 
@@ -35,9 +36,11 @@ const SingleProductPage = () => {
     // console.log(error)
     if (error) {
       setTimeout(() => {
-        history.push("/");
+        navigate("/");
         // there is many ways of achieving the same thing, with 
         // auth0, usenavigate
+        // history.push hooks pushes back the user to '/' which is the homepage 
+        // when an error is encountered.
       }, 400);
       
     }
