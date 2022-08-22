@@ -31,6 +31,7 @@ const Sidebar = () => {
             return (
               <li key={id}>
                 <Link to={url} onClick={CloseSidebar}>
+                  {/* the link react component can  be targeted as an anchor */}
                   {text}
                 </Link>
               </li>
@@ -92,14 +93,15 @@ const SidebarContainer = styled.div`
   .links a:hover {
     padding: 1rem 1.5rem;
     padding-left: 2rem;
-    background: var(--clr-grey-10);
+    // background: var(--clr-grey-10);
     color: var(--clr-grey-2);
   }
 
   .sidebar {
     position: fixed;
     top: 0;
-    left: 0;
+    // left: 0;
+    right:0;
     width: 100%;
     height: 100%;
     background: var(--clr-white);
